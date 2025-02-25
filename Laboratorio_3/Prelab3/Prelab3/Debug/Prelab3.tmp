@@ -1,0 +1,32 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega328P"</DEVICE>
+ <WORKING_DIR>C:\Users\samur\OneDrive - UVG\Escritorio\Micros\Laboratorio_3\Prelab3\Prelab3\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\samur\OneDrive - UVG\Escritorio\Micros\Laboratorio_3\Prelab3\Prelab3\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc</FILE>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\M328PDEF.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\samur\OneDrive - UVG\Escritorio\Micros\Laboratorio_3\Prelab3\Prelab3\Debug\Prelab3.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Prelab3.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Prelab3.map</FILE>
+  <FILE>Prelab3.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <START><FILE>C:\Users\samur\OneDrive - UVG\Escritorio\Micros\Laboratorio_3\Prelab3\Prelab3\main.asm</FILE><LINE>20</LINE></START>
+  <ISR_PCINT1><FILE>C:\Users\samur\OneDrive - UVG\Escritorio\Micros\Laboratorio_3\Prelab3\Prelab3\main.asm</FILE><LINE>92</LINE></ISR_PCINT1>
+  <MAIN_LOOP><FILE>C:\Users\samur\OneDrive - UVG\Escritorio\Micros\Laboratorio_3\Prelab3\Prelab3\main.asm</FILE><LINE>84</LINE></MAIN_LOOP>
+  <INCREMENT_COUNTER><FILE>C:\Users\samur\OneDrive - UVG\Escritorio\Micros\Laboratorio_3\Prelab3\Prelab3\main.asm</FILE><LINE>103</LINE></INCREMENT_COUNTER>
+  <DECREMENT_COUNTER><FILE>C:\Users\samur\OneDrive - UVG\Escritorio\Micros\Laboratorio_3\Prelab3\Prelab3\main.asm</FILE><LINE>108</LINE></DECREMENT_COUNTER>
+ </LABELS>
+</ASSEMBLER_INFO>
