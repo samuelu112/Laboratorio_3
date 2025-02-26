@@ -1,12 +1,12 @@
 ; UNIVERSIDAD DEL VALLE DE GUATEMALA
-; IE2023: Programación de microcontroladores
+; IE2023: ProgramaciÃ³n de microcontroladores
 ; Prelab3.asm
 ;
-; Autor : Eduardo Samuel Urbina Pérez
+; Autor : Eduardo Samuel Urbina PÃ©rez
 ; Proyecto : Prelaboratorio 3
 ; Hardware : ATmega 328
 ; Creado: 12/02/2025
-; Descripción: el prelaboratorio 3 consiste en hacer un contador de 4 bits con dos pulsadores usando interrupciones
+; DescripciÃ³n: el prelaboratorio 3 consiste en hacer un contador de 4 bits con dos pulsadores usando interrupciones
 
 .include "M328PDEF.inc"
 .cseg
@@ -21,7 +21,7 @@
 	RJMP		TMR0 ;Salta a rutina de timer0 overflow
 
 START:
-    ; Configuración de la pila
+    ; ConfiguraciÃ³n de la pila
     LDI    R16, LOW(RAMEND)
     OUT    SPL, R16
     LDI    R16, HIGH(RAMEND)
@@ -52,14 +52,14 @@ START:
 	OUT		DDRD, R16 //Configurar puerto D como salida
 
     ; Configurar PORTC como entrada con pull-ups para los pushbuttons
-    LDI    R16, 0x00
+    LDI    R16, 0b00011000
     OUT    DDRC, R16
-    LDI    R16, 0xFF
+    LDI    R16, 0b11110011
     OUT    PORTC, R16
 
 
     ; Configurar interrupciones por cambio para PORTC
-    ; Habilitar interrupción por cambio para el grupo de PORTC (PCIE1 en PCICR)
+    ; Habilitar interrupciÃ³n por cambio para el grupo de PORTC (PCIE1 en PCICR)
     LDI    R16, 0b00000010//(1<<PCIE1)
     STS    PCICR, R16
     ; Habilitar interrupciones para PC0 y PC1 (corresponden a PCINT8 y PCINT9)
@@ -94,6 +94,8 @@ START:
 	;Direccion
 	LDI		ZL, 0x00
 	LDI		ZH, 0x01
+	LDI		XL, 0x00
+	LDI		XL, 0x01
     ; Inicializar el contador binario de 4 bits
     LDI    R24, 0x00
 
@@ -114,44 +116,36 @@ INIT_TMR0:
     RET
 
 ;---------------------------------------------------------
-; Interrupción Pin Change Interrupt para PORTC PCINT1_vect
+; InterrupciÃ³n Pin Change Interrupt para PORTC PCINT1_vect
 ISR_PCINT1:
     IN     R16, PINC       ; Leer el estado actual de PORTC
-    ; Si PC0 está en 0 (botón presionado), incrementa el contador
-    SBRS   R16, 0          ; Si bit0 está seteado (alto), salta la siguiente instrucción
-    CALL   INCREMENT_COUNTER
-    ; Si PC1 está en 0 (botón presionado), decrementa el contador
+    ; Si PC0 estÃ¡ en 0 (botÃ³n presionado), incrementa el contador
+    SBRS   R16, 0          ; Si bit0 estÃ¡ seteado (alto), salta la siguiente instrucciÃ³n
+    INC    R24
+    ; Si PC1 estÃ¡ en 0 (botÃ³n presionado), decrementa el contador
     SBRS   R16, 1
-    CALL   DECREMENT_COUNTER
-	MOV		R16, R24
-    OUT		PORTB, R16
-	CPI		R20, 100 //R20 = 100 DESPUES DE 100 OVERFLOWS
-	BRNE	MAIN_LOOP
-	CLR		R20
+    DEC    R24
+	ANDI   R24, 0x0F
+
+    OUT		PORTB, R24
     RETI
 
 TMR0:
-	LDI		R16, 100
-	OUT		TCNT0, R16
 	INC		R20
+	CPI		R20, 100 //R20 = 100 DESPUES DE 100 OVERFLOWS
+	BRNE	REGRESO
+	CLR		R20
 	LD		R19, Z+
 	MOV		R21, ZL
 	CPI		R21, 0x0A
 	BREQ	REINICIO
 	OUT		PORTD, R19
+	LDI		R18, 100
+	OUT		TCNT0, R18
 	RETI
-
+REGRESO:
+	RETI
 REINICIO:
 	LDI		ZL, 0x00
 	OUT		PORTD, R19
-    RJMP	MAIN_LOOP
-; Incrementa el contador R24 y lo limita a 4 bits
-INCREMENT_COUNTER:
-    INC    R24
-    ANDI   R24, 0x0F
-    RET
-; Decrementa el contador R24 y lo limita a 4 bits
-DECREMENT_COUNTER:
-    DEC    R24
-    ANDI   R24, 0x0F
-    RET
+    RETI
